@@ -115,14 +115,23 @@ class Topics extends Component {
 
                 //this.detailopen()
                 if (file.length > 0) {
+
+                    console.log("lll",tbody.childNodes.length)
+                    let len = tbody.childNodes.length;
+                    if (len !== 1) {
+                        for (let i = len-1; i > 0; i--) {
+                            console.log("l",i,tbody.childNodes[i])
+                            tbody.removeChild(tbody.childNodes[i])
+                        }
+                    }
+
                     for (var i = 0; i < file.length; i++) { //遍历一下json数据
+                        
                         var trow = this.getDataRow(file[i]); //定义一个方法,返回tr数据
-                        // console.log(tbody.childNodes.length)
+                        console.log('--------')
                         tbody.appendChild(trow);
-                        // tbody.removeChild(tbody.childNodes[i])
 
                     }
-                    // console.log(tbody.childNodes.length)
                 }
                 else {
                     this.open()
@@ -195,7 +204,7 @@ class Topics extends Component {
                             Search
                         </Button>
                     </div>
-                    <Table striped bordered condensed hover>
+                    <Table  striped bordered condensed hover>
                         <thead>
                             <tr>
                                 <th>File Name</th>
