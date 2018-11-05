@@ -1,0 +1,57 @@
+.Home {
+  text-align: center;
+ 
+}
+
+.Home-logo {
+  animation: Home-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.Home-header {
+  height: 180px;
+  padding: 20px;
+  color: white;
+}
+
+.Home-title {
+  font-size: 1.5em;
+}
+
+h3 {
+  color: white 
+}
+
+
+
+.Home-intro {
+  font-size: large;
+}
+/*some css I added*/
+input[type="file"] {
+    display: inline-block;
+}
+
+.table {
+      max-width: 90%;
+      margin: 10px;
+}
+
+.table th {
+    text-align: center;
+}
+#uploadFile {
+  color: white
+}
+
+.btnSend{
+  position: relative;
+  top:-7px;
+}
+
+
+/*end of my css*/
+@keyframes Home-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

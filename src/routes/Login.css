@@ -1,0 +1,126 @@
+.flexcolumn {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: 100%;
+}
+
+html,body {
+  height: 100%;
+  width: 100%
+}
+
+.full {
+  height: 100%;
+  width: 100%
+}
+
+.route {
+  height: 100%
+}
+
+.background {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+  width: 100%
+}
+
+.flexc {
+  padding-bottom: 20px;
+}
+
+.root .full .login-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: 100%;
+  background-size: cover;
+}
+
+.help-block {
+  font-size: 16px;
+  display: block;
+}
+
+.labelName {
+  font-size: 26px;
+
+}
+
+.btn-primary {
+  position: absolute !important;
+  padding-left: 20px
+}
+
+.btn-link {
+  font-size: 24px;
+  padding-left: 100px
+}
+
+.login-header {
+  flex: 3;
+  background-color: white;
+  color: rgba(0, 0, 0, 0.452);
+  display: flex;
+  font-size: 36px;
+  height: 100%;
+  position: absolute;
+  width: 100%
+}
+
+.appRoot {
+  height: 150%;
+}
+
+.table-responsive {
+  height: 100%;
+}
+
+
+.slogan {
+  width: 100%;
+  left: 0;
+  z-index: 10000;
+}
+
+
+.root .full .login-container .login-header .slogan div {
+  width: 100%;
+}
+
+.root .full .login-container .login-header .slogan input {
+  background-color: white;
+  color: #070800
+}
+
+.form-control {
+  width: 250px;
+}
+
+.login-footer {
+  flex: 1;
+  display: flex;
+  background-color: rgba(80, 78, 74, 0.1);
+  flex-direction: column;
+  width: 100%;
+  height: 70%;
+  padding: 0% 
+}
+
+.form-group1 {
+  float: left;
+  padding-left: 43%
+}
+
+.form-group2 label {
+  padding-top: 15px; 
+  color: #ffffff;
+}
+
+.cancel {
+  padding-top: 15px;
+  color: white
+}
