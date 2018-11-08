@@ -1,6 +1,6 @@
 const Mongolass = require('mongolass')
-const fs = require("fs");
-const ipfs = require('../eth-ipfs/ipfs');
+// const fs = require("fs");
+// const ipfs = require('../eth-ipfs/ipfs');
 const config = require('../config')
 const Rx = require('rxjs/Rx');
 
@@ -35,6 +35,12 @@ class Mongo {
               console.error(e)
               console.error(e.stack)
             })
+    }
+
+    deleteOneFile(name_) {
+        this.file.deleteOne({ name: name_ })
+            .exec()
+            .then(() => console.log("success"))
     }
 
     searchFile (para) {

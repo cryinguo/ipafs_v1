@@ -70,6 +70,15 @@ app.get('/searchByfileHash', async (req, res) => {
     res.send(searchresult)
 })
 
+app.get('/deleteOne', async (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "*");
+
+    let name = req.query.name   
+    console.log("delete file:",name)
+    let deleteResult = await mongo.deleteOneFile(name)
+    res.send(deleteResult)
+})
 
 
 app.get('/test', async (req, res) => {

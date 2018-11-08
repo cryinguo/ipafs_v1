@@ -1,13 +1,13 @@
-import React, {Component} from 'react'
-import { Button, OverlayTrigger, Tooltip, DropdownButton,MenuItem,Modal} from 'react-bootstrap';
+import React, { Component } from 'react'
+import { Button, OverlayTrigger, Tooltip, DropdownButton, MenuItem, Modal } from 'react-bootstrap';
 
 import './User.css'
 import ipfs from '../eth-ipfs/ipfs'
-//import config from '../config'
+import config from '../config'
 
 class User extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             files: [],
@@ -20,20 +20,20 @@ class User extends Component {
         this.showMore = this.showMore.bind(this);
         this.deleteFile = this.deleteFile.bind(this);
     }
-    
-    
-    getFileList = async() => {
 
-        console.log("uname:",sessionStorage.getItem('un'));
+
+    getFileList = async () => {
+
+        console.log("uname:", sessionStorage.getItem('un'));
         if (!sessionStorage.getItem('un')) {
             this.needLoginOpen();
             // alert("请先登录账号！");
             return;
-          }
-        await ipfs.files.ls('/'+sessionStorage.getItem('un'), (err, files) => {
-            this.setState({files})
+        }
+        await ipfs.files.ls('/' + sessionStorage.getItem('un'), (err, files) => {
+            this.setState({ files })
             files.map(file => console.log(file.name))
-            
+
             // files.forEach((file) => {
             //   //console.log(file)
 
@@ -58,7 +58,7 @@ class User extends Component {
     //             this.setState({files})
     //             //console.log("this.files:", this.files );
     //             files.map(file => console.log(file.name))
-                
+
     //             // files.forEach((file) => {
     //             // this.setState((prevState) => ({
     //             //         counter: prevState.files.push(file)
@@ -69,34 +69,40 @@ class User extends Component {
     // }
 
     showMore(file) {
-        ipfs.files.stat('/'+sessionStorage.getItem('un')+'/'+file, (err, stats) => {
+        ipfs.files.stat('/' + sessionStorage.getItem('un') + '/' + file, (err, stats) => {
             console.log(stats)
-            this.setState({filestate:stats})
+            this.setState({ filestate: stats })
         })
     }
 
-    deleteFile (file) {
-            ipfs.files.rm('/'+sessionStorage.getItem('un')+'/'+file, (err, res) => {
-            if(err ){
+    deleteFile(file) {
+        ipfs.files.rm('/' + sessionStorage.getItem('un') + '/' + file, (err, res) => {
+            if (err) {
                 console.log(err);
-            }else{
-                console.log("delete result: ", res);
+            } else {
+                //console.log("delete result: success");
             }
         })
         this.getFileList();
+
+        fetch(config.express.url + config.express.port + "/deleteOne?name=" + file)
+            .then(res => res.text())
+            .then(res => {
+                console.log(res)
+            })
     }
 
-    close = () => this.setState({showModal: false});
-    
-    open = () => this.setState({showModal: true});
+    close = () => this.setState({ showModal: false });
 
-    noFileclose = () => this.setState({fileshow: false});
-    
-    noFileopen = () => this.setState({fileshow: true});
+    open = () => this.setState({ showModal: true });
 
-    needLoginOpen = () => this.setState({needLogin: true});
-    needLoginClose = () => this.setState({needLogin: false});
-    
+    noFileclose = () => this.setState({ fileshow: false });
+
+    noFileopen = () => this.setState({ fileshow: true });
+
+    needLoginOpen = () => this.setState({ needLogin: true });
+    needLoginClose = () => this.setState({ needLogin: false });
+
     render() {
 
         // const popover = (
@@ -112,7 +118,7 @@ class User extends Component {
 
         const tooltip = (
             <Tooltip id="tooltip"><strong>点击</strong> 删除该文件。</Tooltip>
-          );
+        );
 
         const Detailtip = (
             <Tooltip id="tooltip"><strong>点击</strong> 查看文件详情。</Tooltip>
@@ -122,37 +128,37 @@ class User extends Component {
             <Tooltip id="tooltip"><strong>点击</strong> 显示用户上传文件列表。</Tooltip>
         );
 
-        return(
+        return (
             <div id="userFileList" >
                 <h2 >
                     User File
                     <OverlayTrigger placement="bottom" overlay={Displaytip}>
-                        <Button  className ='display' bsStyle="primary" onClick = {this.getFileList} style={{"marginLeft":"100px"}}> Display </Button>
+                        <Button className='display' bsStyle="primary" onClick={this.getFileList} style={{ "marginLeft": "100px" }}> Display </Button>
                     </OverlayTrigger>
                 </h2>
                 <h3>
-                    <center style={{color: 'black'}}>用户文件上传列表</center>
+                    <center style={{ color: 'black' }}>用户文件上传列表</center>
                 </h3>
-                <hr/>
-                
+                <hr />
+
                 <ul>
-                    <div style={{width:"50%", float:"left"}}>
-                        {this.state.files.map(file => 
+                    <div style={{ width: "50%", float: "left" }}>
+                        {this.state.files.map(file =>
                             <li key={file.name}>
                                 {file.name}
-                                <DropdownButton className ='dropBtn' bsSize="small" bsStyle={"default"} title={"选择"}>
-                                <OverlayTrigger placement="bottom" overlay={Detailtip}>
-                                        <MenuItem eventKey="2" onSelect ={this.open} onClick={this.showMore.bind(this, file.name)}>详情</MenuItem>
-                                    </OverlayTrigger> 
+                                <DropdownButton className='dropBtn' bsSize="small" bsStyle={"default"} title={"选择"}>
+                                    <OverlayTrigger placement="bottom" overlay={Detailtip}>
+                                        <MenuItem eventKey="2" onSelect={this.open} onClick={this.showMore.bind(this, file.name)}>详情</MenuItem>
+                                    </OverlayTrigger>
                                     <MenuItem divider />
                                     <OverlayTrigger placement="bottom" overlay={tooltip}>
-                                        <MenuItem eventKey="1" onSelect ={this.deleteFile.bind(this, file.name)}>删除</MenuItem>
+                                        <MenuItem eventKey="1" onSelect={this.deleteFile.bind(this, file.name)}>删除</MenuItem>
                                     </OverlayTrigger>
-                                    
-                                                                
+
+
                                 </DropdownButton>
-                                <hr/>
-                            </li> )}
+                                <hr />
+                            </li>)}
                     </div>
                 </ul>
 
@@ -213,7 +219,7 @@ class User extends Component {
 
         )
     }
-    
+
 }
 
 export default User;
